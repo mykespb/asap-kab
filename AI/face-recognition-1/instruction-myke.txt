@@ -1,0 +1,86 @@
+2020-02-09
+
+https://www.youtube.com/watch?v=5PpnZ_1hqdE
+нейронная сеть определяет президента на фото
+
+исходные данные:
+взяты несколько страниц выдачи гугла,
+сохранён список фото,
+скачаны все фото по списку,
+просмотрены, отбракованы лишние (не они либо групповые),
+осталось примерно по 180 фото каждого автора,
+
+обработка:
+использован движок OpenFace, 
+сделано выявление лиц + образка лиц,
+осталось примерно по 60 Кукина и Визбора, около 100 Высоцкого,
+проведено обучение нейронной сети,
+после этого правильно распознаны по 1 фото каждого,
+не входившие в обучающую выборку,
+с результатами 86-95% уверенности,
+размер файла с обученной моделью - 364 КБ.
+
+там не всё просто
+(использована старая версия python2;
+будут проблемы с фотографиями разных возрастов,
+с групповыми фотографиями,
+с нечёткими, искажёнными, повёрнутыми фотографиями),
+но в целом результат хороший,
+стоит развивать дальше.
+
+прочее
+https://cmusatyalab.github.io/openface/setup/
+https://github.com/cmusatyalab/openface
+https://medium.com/analytics-vidhya/face-recognition-using-openface-92f02045ca2a
+https://www.eandbsoftware.org/openface-free-and-open-source-face-recognition-with-deep-neural-networks/
+https://stackshare.io/stackups/opencv-vs-openface
+https://www.nobleprog.pt/en/cc/openface?participants=1&how=public
+https://algorithmia.com/blog/understanding-facial-recognition-openface
+https://github.com/ageitgey/face_recognition
+
+
+#1 download urls
+urls = Array.from(document.querySelectorAll('.rg_i')).map(el => el.hasAttribute('data-src') ? el.getAttribute('data-src') : el.getAttribute('data-iurl'))
+window.open('data:text/csv;charset=utf-8,' + escape(urls.join('\n')))
+
+#2 download photos
+import csv
+import requests
+
+path = '/home/andrey/dataset-image/'
+datasets = ['putin', 'merkel', 'tramp']
+
+for data in datasets:
+    with open(f'{path}{data}/images') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for i, row in enumerate(csv_reader):
+            if len(row):
+                p = requests.get(row[0])
+                out = open(f"{path}{data}/{i}.jpg", "wb")
+                out.write(p.content)
+                out.close()
+
+
+#3 process photos
+docker pull bamos/openface
+
+sudo 
+docker run -v /home/myke/bards/bardswork/2020-ark/AI/face-recognition-1:/root/openface/dataset-image -p 9000:9000 -p 8000:8000 -t -i bamos/openface /bin/bash
+
+#cd /root/openface
+cd /root/openface/dataset-image
+mkdir align
+
+#./util/align-dlib.py /root/dataset-image/ align outerEyesAndNose /root/dataset-image/ --size 96
+
+./util/align-dlib.py /root/dataset-image/ align outerEyesAndNose /root/dataset-image/align/ --size 96
+
+./batch-represent/main.lua -outDir /root/dataset-image/generated-embeddings/ -data /root/dataset-image/align/
+
+./demos/classifier.py train /root/dataset-image/generated-embeddings/
+
+#./demos/classifier.py infer /root/dataset-image/generated-embeddings/classifier.pkl /root/dataset-image/
+
+./demos/classifier.py infer /root/dataset-image/generated-embeddings/classifier.pkl /root/images/test/kukin-145.png
+
+

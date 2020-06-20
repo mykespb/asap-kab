@@ -1,0 +1,35 @@
+#1 download urls
+urls = Array.from(document.querySelectorAll('.rg_i')).map(el => el.hasAttribute('data-src') ? el.getAttribute('data-src') : el.getAttribute('data-iurl'))
+window.open('data:text/csv;charset=utf-8,' + escape(urls.join('\n')))
+
+#2 download photos
+import csv
+import requests
+
+path = '/home/andrey/dataset-image/'
+datasets = ['putin', 'merkel', 'tramp']
+
+for data in datasets:
+    with open(f'{path}{data}/images') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        for i, row in enumerate(csv_reader):
+            if len(row):
+                p = requests.get(row[0])
+                out = open(f"{path}{data}/{i}.jpg", "wb")
+                out.write(p.content)
+                out.close()
+
+
+#3 process photos
+docker pull bamos/openface
+
+sudo docker run -v /home/andrey/dataset-image:/root/dataset-image -p 9000:9000 -p 8000:8000 -t -i bamos/openface /bin/bash
+cd /root/openface
+
+./util/align-dlib.py /root/dataset-image/ align outerEyesAndNose /root/dataset-image/ --size 96
+
+./batch-represent/main.lua -outDir ./dataset-image/generated-embeddings/ -data /root/dataset-image/
+
+./demos/classifier.py train ./generated-embeddings/
+
+./demos/classifier.py infer ./generated-embeddings/classifier.pkl /root/dataset-image/
