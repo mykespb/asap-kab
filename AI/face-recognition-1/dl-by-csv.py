@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+# program from youtube
+# changed by Mikhail (myke) Kolodin, 2020-06
+
 import csv
 import requests
 
