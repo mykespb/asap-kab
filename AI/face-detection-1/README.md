@@ -25,6 +25,8 @@ pip install -r requirements.txt
 
 c. Install ffmpeg or any other software for video convertion.
 
+See ffmpeg.org . 
+
 Photo processing
 ----------------------
 
