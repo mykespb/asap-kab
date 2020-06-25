@@ -3,10 +3,10 @@ import cv2
 # Load the cascade
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-# To capture video from webcam. 
-cap = cv2.VideoCapture(0)
-# To use a video file as input 
-# cap = cv2.VideoCapture('filename.mp4')
+# To capture video from webcam.
+# cap = cv2.VideoCapture(0)
+# To use a video file as input
+cap = cv2.VideoCapture('./arhi1.mp4')
 
 while True:
     # Read the frame
@@ -29,6 +29,6 @@ while True:
     k = cv2.waitKey(30) & 0xff
     if k==27:
         break
-        
+
 # Release the VideoCapture object
 cap.release()
