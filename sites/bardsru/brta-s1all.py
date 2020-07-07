@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# brta-s1.py
+# brta-s1all.py
 # Mikhail (myke) Kolodin, 2020
 # обработка Bards.ru text archive
 # этап 1 - получение списка авторов
-# 2020-07-07 1.1
+# 2020-07-07 1.2.2
 
 import re
 import requests
@@ -11,17 +11,17 @@ from lxml import html
 import sqlite3
 import time
 
-print ("Работа с текстовым архивом сайта www.bards.ru - 1 этап: получение списка авторов")
+print ("Работа с текстовым архивом сайта www.bards.ru - 1 этап: получение списка авторов по полному списку персон")
 
 site_addr = 'http://www.bards.ru/'
-start_addr = 'http://bards.ru/archives/index.php'
-author_addr = 'http://bards.ru/archives/'
-dbname = './brta.db'
+start_addr = 'http://bards.ru/persons.php?ch=%'
+author_addr = 'http://bards.ru/person.php?id='
+dbname = './brtall.db'
 print (site_addr, start_addr, author_addr, dbname)
 
-#sub_letters = "C0,C1,C2,C3,C4,C5,A8,C6,C7,C8,C9,CA,CB,CC,CD,CE,CF,D0,D1,D2,D3,D4,D5,D6,D7,D8,D9,Dd,De,DF".split(",")
+sub_letters = "C0,C1,C2,C3,C4,C5,A8,C6,C7,C8,C9,CA,CB,CC,CD,CE,CF,D0,D1,D2,D3,D4,D5,D6,D7,D8,D9,DA,DD,DE,DF".split(",")
 #sub_letters = "CC,CD,CE,CF,D0,D1,D2,D3,D4,D5,D6,D7,D8,D9,DD,DE,DF".split(",")
-sub_letters = ['C0']
+#sub_letters = ['C0']
 print (sub_letters)
 
 # connect to db
@@ -43,14 +43,17 @@ def run_letter (leta):
     """ run with specific letter"""
 
     print ("запуск для кода", leta)
-    gaddr = start_addr + '?ch=%' + leta
+    gaddr = start_addr + leta
     page = requests.get (gaddr)
     page.encoding = 'cp1251'
     parsed = html.fromstring (page.text)
+#    print (8)
 
     try:
-        authors = parsed.xpath('//a[starts-with(@href,"author.php")]')
+        authors = parsed.xpath('//a[starts-with(@href,"person.php")]')
+#        print(authors)
         for a in authors:
+#            print(9)
             try:
                 time.sleep(3)
                 ref  = a.xpath('@href')
@@ -66,10 +69,11 @@ def run_letter (leta):
                 desc = a.xpath('../following-sibling::*/text()')
                 refaut = author_addr + ref[0]
 
-                apage = author_addr + ref[0]
+#                apage = author_addr + ref[0]
+                apage = author_addr + numba
                 ypage = apage + "&sortyear=1"
 
-#                print (0, end=',')
+                print (0, refaut, numba, apage)
 
                 ppage = requests.get (apage)
                 ppage.encoding = 'cp1251'
@@ -77,7 +81,7 @@ def run_letter (leta):
 
                 bio = pparsed.xpath('//tr/td[@class="show"]')[0].xpath('string(.)')
 
-#                print (1, end=',')
+                print (1, end=',')
 
                 yearbirth = re.search (r'род. ([\d.]+)', bio)
                 if yearbirth:
@@ -90,7 +94,7 @@ def run_letter (leta):
                 else:
                     yeardeath = '-'
 
-#                print (2, end=',')
+                print (2, yearbirth, yeardeath)
 
                 try:
                     address = pparsed.xpath('//tr/td[@class="address"]')[0].xpath('string(.)')
@@ -100,14 +104,15 @@ def run_letter (leta):
 
                 print ("### result:", (numba, refaut, name, desc[0], yearbirth, yeardeath))
 
-                print ("writing to DB", end=" --> ")
-                print ("data:", (str(numba), str(refaut), str(name), str(address), str(bio), str(yearbirth), str(yeardeath), str(desc[0])))
-                try:
-                    db.execute("INSERT INTO personsd (pid, page, fio, desc, bio, dbirth, ddeath, place) VALUES (?,?,?,?,?,?,?,?)", (str(numba), str(refaut), str(name), str(address), str(bio), str(yearbirth), str(yeardeath), str(desc[0])))
-                    conn.commit()
-                    print ("ok!")
-                except:
-                    print ("cannot write to DB!")
+                if 1:
+                    print ("writing to DB", end=" --> ")
+                    print ("data:", (str(numba), str(refaut), str(name), str(address), str(bio), str(yearbirth), str(yeardeath), str(desc[0])))
+                    try:
+                        db.execute("INSERT INTO personsd (pid, page, fio, desc, bio, dbirth, ddeath, place) VALUES (?,?,?,?,?,?,?,?)", (str(numba), str(refaut), str(name), str(address), str(bio), str(yearbirth), str(yeardeath), str(desc[0])))
+                        conn.commit()
+                        print ("ok!")
+                    except:
+                        print ("cannot write to DB!")
 
             except:
                 print ("exception inner")
