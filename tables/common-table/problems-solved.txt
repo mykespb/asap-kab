@@ -1,0 +1,35 @@
+https://ruhighload.com/lock+wait+timeout+exceeded+%D0%B2+mysql
+
+Lock wait timeout exceeded в Mysql
+
+Если кровь уже льется на пол
+Если проблема происходит прямо сейчас, необходимо узнать, какие процессы приводят к катастрофе. Обратить внимание нужно на процессы, время исполнения которых больше нескольких секунд:
+
+show processlist
++------+------+-----------------+--------------------------------------------------------------------------+
+| Id   | User | Host            | Command | Time | Info						           |
++------+------+-----------------+--------------------------------------------------------------------------+
+| 1819 | root | localhost:38836 | Query   |    1 | UPDATE users SET ts = UNIX_TIMESTAMP() WHERE id = 723   |
+| 1834 | root | localhost:38836 | Query   |    14 | UPDATE users SET premium = false                       |
++------+------+-----------------+--------------------------------------------------------------------------+
+# такой стремный запрос лучше вообще никогда не выполнять
+
+Такой процесс необходимо уничтожить:
+
+kill 1834
+
+--------------------------
+
+In Python 3, you can monkey-patch the print function, to always send flush=True:
+
+_orig_print = print
+
+def print(*args, **kwargs):
+    _orig_print(*args, flush=True, **kwargs)
+As pointed out in a comment, you can simplify this by binding the flush parameter to a value, via functools.partial:
+
+print = functools.partial(print, flush=True
+
+-------------------------------------
+
+
