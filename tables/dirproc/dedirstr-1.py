@@ -2,15 +2,16 @@
 
 # получение списка полезных папок из выдачи команды dir (ms windwos)
 # Mikhail (myke) Kolodin, 2020
-# 2020-12-20 1.0
+# 2020-12-20 1.3
 
 fin  = "disks.txt"
 fout = "disks-str.tab"
+n    = 0
 
 with open(fin) as fi, open(fout, 'w') as fo:
     state = 0
 
-    fo.write("tomame\ttomserial\tdate\ttomdir\tfolder\n")
+    fo.write("n\ttomame\ttomserial\tdate\ttomdir\tfolder\n")
 
     for lin in fi:
         print(".", end="")
@@ -25,7 +26,7 @@ with open(fin) as fi, open(fout, 'w') as fo:
             continue
 
         if state == 0 and "Серийный номер тома" in line:
-            tomserial = line[22:]
+            tomserial = line[21:]
             continue
 
         if state == 0 and "Содержимое папки" in line:
@@ -37,7 +38,8 @@ with open(fin) as fi, open(fout, 'w') as fo:
             break
 
         if state == 1 and "<DIR>" in line and line[36] != ".":
+            n += 1 
             folder = line[36:]
             adate = line[:10]
-            fo.write(f"{tomname}\t{tomserial}\t{adate}\t{tomdir}\t{folder}\n")
+            fo.write(f"{n}\t{tomname}\t{tomserial}\t{adate}\t{tomdir}\t{folder}\n")
 

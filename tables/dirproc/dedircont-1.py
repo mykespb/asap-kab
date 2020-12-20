@@ -2,16 +2,17 @@
 
 # получение списка мультимедийных файлов из выдачи команды dir (ms windwos)
 # Mikhail (myke) Kolodin, 2020
-# 2020-12-20 1.1
+# 2020-12-20 1.3
 
 def main():
     fin  = "disks.txt"
     fout = "disks-cont.tab"
+    n    = 0
 
     with open(fin) as fi, open(fout, 'w') as fo:
         state = 0
 
-        fo.write("tomame\ttomserial\tdate\tfolder\tsize\tmmedia\n")
+        fo.write("n\ttomame\ttomserial\tdate\tfolder\tsize\tmmedia\n")
 
         for lin in fi:
             print(".", end="")
@@ -26,7 +27,7 @@ def main():
                 continue
 
             if state == 0 and "Серийный номер тома" in line:
-                tomserial = line[22:]
+                tomserial = line[21:]
                 continue
 
             if state == 0 and "Содержимое папки" in line:
@@ -49,6 +50,7 @@ def main():
                 or line.endswith(".aac")
                 or line.endswith(".flac")
                 ):
+                n += 1
                 folder = line[36:]
                 adate = line[:10]
                 ssize = line[18:35]
@@ -59,7 +61,7 @@ def main():
                 # ssize = ssize.replace(" ", "_")
                 # ssize = int(ssize, 0)
                 ssize = onlydigits(ssize)
-                fo.write(f"{tomname}\t{tomserial}\t{adate}\t{tomdir}\t{ssize}\t{folder}\n")
+                fo.write(f"{n}\t{tomname}\t{tomserial}\t{adate}\t{tomdir}\t{ssize}\t{folder}\n")
 
 def onlydigits(s):
     """ leave only digits """
