@@ -2,7 +2,7 @@
 
 # получение списка мультимедийных файлов из выдачи команды dir (ms windwos)
 # Mikhail (myke) Kolodin, 2020
-# 2020-12-20 0.1
+# 2020-12-20 1.1
 
 def main():
     fin  = "disks.txt"
@@ -38,7 +38,17 @@ def main():
                 tomdir = line[21:]
                 continue
 
-            if state == 1 and (line.endswith(".mp3") or line.endswith(".mp4")):
+            if state == 1 and (line.endswith(".mp3") 
+                or line.endswith(".mp4")
+                or line.endswith(".avi")
+                or line.endswith(".ogg")
+                or line.endswith(".ra")
+                or line.endswith(".wma")
+                or line.endswith(".m4a")
+                or line.endswith(".ad")
+                or line.endswith(".aac")
+                or line.endswith(".flac")
+                ):
                 folder = line[36:]
                 adate = line[:10]
                 ssize = line[18:35]

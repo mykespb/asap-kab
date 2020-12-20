@@ -10,7 +10,7 @@ fout = "disks-str.tab"
 with open(fin) as fi, open(fout, 'w') as fo:
     state = 0
 
-    fo.write("tomame\ttomserial\ttomdir\tdate\tfolder\n")
+    fo.write("tomame\ttomserial\tdate\ttomdir\tfolder\n")
 
     for lin in fi:
         print(".", end="")
