@@ -1,0 +1,23 @@
+Tools for json, sqlite3, python3
+====================================
+
+https://www.codeproject.com/Tips/4067936/Load-JSON-File-with-Array-of-Objects-to-SQLite3-On
+Load JSON File with Array of Objects to SQLite3 On Python
+Emrah Koçak
+17 May 2019
+
+
+https://habr.com/ru/post/547448/
+nalgeon
+17 марта 2021 в 12:32
+SQLite — не игрушка
+Программирование, SQL, SQLite
+
+Чтобы преобразовать SQLite в JSON, вы можете использовать этот инструмент python: https://github.com/Austyns/sqlite-to-json-python
+вы также можете использовать этот онлайн-инструмент https: / / data-converters.web.app/ , если вы не хотите кодировать
+Austine Iyke
+31 июля 2019 в 09:27
+
+https://www.sqlite.org/json1.html
+The JSON1 Extension
+
