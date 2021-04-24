@@ -185,6 +185,12 @@
 Реализация
 ------------------------------------------
 
+
+...
+
+Примечания
+------------------------------------------
+
 https://docs.python.org/3/library/sqlite3.html
 
 https://github.com/rogerbinns/apsw
@@ -202,10 +208,4 @@ https://chrisostrouchov.com/post/python_sqlite/
 http://www.bard-afisha.spb.ru/
 
 https://github.com/NixOS/nixpkgs/issues/66526
-
-...
-
-Примечания
-------------------------------------------
-
 ...
