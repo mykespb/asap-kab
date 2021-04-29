@@ -2,7 +2,7 @@
 
 # получение списка мультимедийных файлов из выдачи команды dir (ms windwos)
 # Mikhail (myke) Kolodin, 2020
-# 2020-12-20 1.3
+# 2020-12-20 2021-04-29 1.4
 
 def main():
     fin  = "disks.txt"
@@ -12,7 +12,7 @@ def main():
     with open(fin) as fi, open(fout, 'w') as fo:
         state = 0
 
-        fo.write("n\ttomame\ttomserial\tdate\tfolder\tsize\tmmedia\n")
+        fo.write("n\ttomname\ttomserial\tdate\tfolder\tsize\tmmedia\n")
 
         for lin in fi:
             print(".", end="")

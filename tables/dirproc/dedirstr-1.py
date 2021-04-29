@@ -2,7 +2,7 @@
 
 # получение списка полезных папок из выдачи команды dir (ms windwos)
 # Mikhail (myke) Kolodin, 2020
-# 2020-12-20 1.3
+# 2020-12-20 2021-04-29 1.4
 
 fin  = "disks.txt"
 fout = "disks-str.tab"
@@ -11,7 +11,7 @@ n    = 0
 with open(fin) as fi, open(fout, 'w') as fo:
     state = 0
 
-    fo.write("n\ttomame\ttomserial\tdate\ttomdir\tfolder\n")
+    fo.write("n\ttomname\ttomserial\tdate\ttomdir\tfolder\n")
 
     for lin in fi:
         print(".", end="")
