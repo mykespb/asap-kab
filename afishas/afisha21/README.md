@@ -8,9 +8,9 @@
 
 Дата начала: 2021-01-01
 
-Дата правки: 2021-04-27
+Дата правки: 2021-05-01
 
-Версия: 1.6.1.
+Версия: 1.6.2.
 
 Задача
 -------------------------------------
@@ -64,7 +64,7 @@
 
 Добавить столбцы в json:
 - jsonafter json -- параметры события (ведущий, цены, число зрителей, кто и какие делал записи, фото, и т.п.)
-- jsonrefs json -- ссылки на сетевые ресурсы (самого концерта, метасобытия. оргов, клубов, страниц рекламы и т.п., по возможности,  с описаниями и точно - с указанием типа ссылки (на событие, на рекламу, на орга, прочее непонятное встреченное)) 
+- jsonrefs json -- ссылки на сетевые ресурсы 
 - jsonetc josn -- всё прочее, что можно извлечь по данным, указанным человеком
 - jsonnotes json -- все примечания. оставленнеые редакторами
   [{person: "id/uuid", dtcre: "iso", dtmod: "iso", note: "text", uuid: "uuid of note"}]
@@ -127,6 +127,8 @@
 - архивы Тулы
 - архивы Москвы
 - ...
+
+Подготовить и провести автообработку.
 
 ### Этап 9 - Взаимно подготовить сайт и архив
 
@@ -193,27 +195,12 @@
 Реализация
 --------------------------------------
 
-
 ...
 
 Примечания
 --------------------------------------
 
-https://docs.python.org/3/library/sqlite3.html
-
-https://github.com/rogerbinns/apsw
-
-https://rogerbinns.github.io/apsw/pysqlite.html
-
-https://sqlite-utils.datasette.io/en/stable/python-api.html#storing-json
-
-https://www.sqlite.org/json1.html
-
-https://www.fullstackpython.com/sqlite.html
-
-https://chrisostrouchov.com/post/python_sqlite/
-
 http://www.bard-afisha.spb.ru/
 
 https://github.com/NixOS/nixpkgs/issues/66526
-...
+
