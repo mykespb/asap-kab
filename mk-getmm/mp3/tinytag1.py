@@ -2,7 +2,7 @@
 
 # Mikhail (myke) Kolodin, 2022
 # 2022-02-02 2022-02-02 1.1
-# tinyta1.py
+# tinytag1.py
 # ~ проверка вынимания информации из аудиофайлов
 
 # ~ https://pythonrepo.com/repo/devsnd-tinytag-python-audio
