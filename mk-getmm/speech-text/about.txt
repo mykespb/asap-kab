@@ -1,0 +1,25 @@
+
+https://www.youtube.com/watch?v=-NRGVCHI4WM
+Build A Speech To Text Program Using Python With AssemblyAI API (Source Code Included)
+111 просмотров2 февр. 2022 г.
+
+https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-russian/blame/main/README.md
+
+https://habr.com/ru/post/433532/
+
+Roaming
+18 декабря 2018 в 12:22
+О чем говорит YouTube
+Python *
+Машинное обучение *
+Искусственный интеллект
+Tutorial
+
+https://github.com/ytdl-org/youtube-dl
+
+https://github.com/VolodymyrPavliukevych/YoutubeSummarizer
+Simple Youtube summarizer
+
+https://gitplanet.com/label/speech-recognition
+
+
